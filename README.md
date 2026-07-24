@@ -53,8 +53,8 @@ Two responses are excluded from Figure 1:
 - `SM-Q3`
 - `LS-Q22`
 
-All graders assigned these responses a score of 0, resulting in no variation for comparison.
+Responses are included in anonymized form for reproducibility. All personally identifying information has been removed before release.
 
 ## Privacy and Anonymization
 
-The dataset does not contain personally identifiable information. Responses are included in anonymized form as submitted during gameplay.
+The dataset does not contain any personally identifiable information. Responses have been de-identified prior to release and are provided solely to support reproducibility of the reported analyses.
