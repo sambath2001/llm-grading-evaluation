@@ -21,22 +21,22 @@ sm_claude   = [2, 2, 0, 3, 0, 3, 2, 2]
 sm_llama    = [2, 2, 0, 3, 1, 3, 2, 2]
 sm_deepseek = [2, 2, 0, 3, 0, 3, 0, 0]
 sm_gpt      = [3, 2, 0, 0, 1, 1, 0, 0]
-sm_sambath  = [2, 2, 0, 2, 2, 3, 0, 1]
-sm_shannon  = [3, 3, 0, 2, 2, 3, 0, 1]
+sm_grader2  = [2, 2, 0, 2, 2, 3, 0, 1]
+sm_grader1  = [3, 3, 0, 2, 2, 3, 0, 1]
 
 ls_claude   = [2,3,3,1,1,1,2,2,2,1,1,2,3,2,2,1,3,0,1,3,0,0,3,3]
 ls_llama    = [2,3,3,1,2,1,3,2,3,1,0,2,3,2,2,2,3,1,2,3,2,0,3,3]
 ls_deepseek = [2,3,3,0,1,1,2,1,2,0,1,2,3,2,2,1,3,1,1,3,0,0,2,3]
 ls_gpt      = [2,3,3,0,1,1,0,0,1,0,1,3,3,3,2,2,3,1,2,3,1,0,2,3]
-ls_sambath  = [2,3,3,1,2,1,3,2,3,1,0,2,3,2,2,1,3,0,1,3,1,0,3,3]
-ls_shannon  = [2,3,3,1,2,1,3,1,3,1,1,2,3,3,2,2,3,2,2,3,0,0,3,3]
+ls_grader2  = [2,3,3,1,2,1,3,2,3,1,0,2,3,2,2,1,3,0,1,3,1,0,3,3]
+ls_grader1  = [2,3,3,1,2,1,3,1,3,1,1,2,3,3,2,2,3,2,2,3,0,0,3,3]
 
 all_claude   = sm_claude   + ls_claude
 all_llama    = sm_llama    + ls_llama
 all_deepseek = sm_deepseek + ls_deepseek
 all_gpt      = sm_gpt      + ls_gpt
-all_sambath  = sm_sambath  + ls_sambath
-all_shannon  = sm_shannon  + ls_shannon
+all_grader2  = sm_grader2  + ls_grader2
+all_grader1  = sm_grader1  + ls_grader1
 
 
 def get_kappa(a, b):
@@ -59,7 +59,7 @@ def filt(scores):
 
 c_f  = filt(all_claude);   l_f  = filt(all_llama)
 ds_f = filt(all_deepseek); g_f  = filt(all_gpt)
-sh_f = filt(all_shannon);  sb_f = filt(all_sambath)
+sh_f = filt(all_grader1);  sb_f = filt(all_grader2)
 n    = len(labels)
 
 fig, ax = plt.subplots(figsize=(22, 6))
@@ -97,14 +97,14 @@ print("Figure 1 saved.")
 models_label = ["Claude\nHaiku 4.5", "Llama 3.1\n70B", "DeepSeek\nV3.2",
                 "GPT-OSS\n120B", "Human\n(Grader 2)"]
 
-kappa_comb = [get_kappa(s, all_shannon)
-              for s in [all_claude, all_llama, all_deepseek, all_gpt, all_sambath]]
-spear_comb = [get_spear(s, all_shannon)
-              for s in [all_claude, all_llama, all_deepseek, all_gpt, all_sambath]]
-kappa_sm   = [get_kappa(s, sm_shannon)
-              for s in [sm_claude, sm_llama, sm_deepseek, sm_gpt, sm_sambath]]
-spear_sm   = [get_spear(s, sm_shannon)
-              for s in [sm_claude, sm_llama, sm_deepseek, sm_gpt, sm_sambath]]
+kappa_comb = [get_kappa(s, all_grader1)
+              for s in [all_claude, all_llama, all_deepseek, all_gpt, all_grader2]]
+spear_comb = [get_spear(s, all_grader1)
+              for s in [all_claude, all_llama, all_deepseek, all_gpt, all_grader2]]
+kappa_sm   = [get_kappa(s, sm_grader1)
+              for s in [sm_claude, sm_llama, sm_deepseek, sm_gpt, sm_grader2]]
+spear_sm   = [get_spear(s, sm_grader1)
+              for s in [sm_claude, sm_llama, sm_deepseek, sm_gpt, sm_grader2]]
 
 x = np.arange(len(models_label)); w = 0.2
 fig, axes = plt.subplots(1, 2, figsize=(16, 6))
@@ -146,8 +146,8 @@ graders = {
     "Llama 3.1 70B":    all_llama,
     "DeepSeek V3.2":    all_deepseek,
     "GPT-OSS 120B":     all_gpt,
-    "Human (Grader 1)": all_shannon,
-    "Human (Grader 2)": all_sambath,
+    "Human (Grader 1)": all_grader1,
+    "Human (Grader 2)": all_grader2,
 }
 
 fig, axes = plt.subplots(2, 3, figsize=(16, 9), sharey=True)
@@ -181,8 +181,8 @@ sets_clean = {
     "Llama":    all_llama,
     "DeepSeek": all_deepseek,
     "GPT":      all_gpt,
-    "Grader 2": all_sambath,
-    "Grader 1": all_shannon,
+    "Grader 2": all_grader2,
+    "Grader 1": all_grader1,
 }
 names = list(sets_clean.keys())
 n_g   = len(names)
