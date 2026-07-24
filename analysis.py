@@ -12,23 +12,23 @@ sm_claude   = [2, 2, 0, 3, 0, 3, 2, 2]
 sm_llama    = [2, 2, 0, 3, 1, 3, 2, 2]
 sm_deepseek = [2, 2, 0, 3, 0, 3, 0, 0]
 sm_gpt      = [3, 2, 0, 0, 1, 1, 0, 0]
-sm_sambath  = [2, 2, 0, 2, 2, 3, 0, 1]
-sm_shannon  = [3, 3, 0, 2, 2, 3, 0, 1]
+sm_grader2  = [2, 2, 0, 2, 2, 3, 0, 1]
+sm_grader1  = [3, 3, 0, 2, 2, 3, 0, 1]
 sm_prod_ai  = [2, 2, 0, 3, 1, 3, 0, 1]
 
 ls_claude   = [2,3,3,1,1,1,2,2,2,1,1,2,3,2,2,1,3,0,1,3,0,0,3,3]
 ls_llama    = [2,3,3,1,2,1,3,2,3,1,0,2,3,2,2,2,3,1,2,3,2,0,3,3]
 ls_deepseek = [2,3,3,0,1,1,2,1,2,0,1,2,3,2,2,1,3,1,1,3,0,0,2,3]
 ls_gpt      = [2,3,3,0,1,1,0,0,1,0,1,3,3,3,2,2,3,1,2,3,1,0,2,3]
-ls_sambath  = [2,3,3,1,2,1,3,2,3,1,0,2,3,2,2,1,3,0,1,3,1,0,3,3]
-ls_shannon  = [2,3,3,1,2,1,3,1,3,1,1,2,3,3,2,2,3,2,2,3,0,0,3,3]
+ls_grader2  = [2,3,3,1,2,1,3,2,3,1,0,2,3,2,2,1,3,0,1,3,1,0,3,3]
+ls_grader1  = [2,3,3,1,2,1,3,1,3,1,1,2,3,3,2,2,3,2,2,3,0,0,3,3]
 
 all_claude   = sm_claude   + ls_claude
 all_llama    = sm_llama    + ls_llama
 all_deepseek = sm_deepseek + ls_deepseek
 all_gpt      = sm_gpt      + ls_gpt
-all_sambath  = sm_sambath  + ls_sambath
-all_shannon  = sm_shannon  + ls_shannon
+all_grader2  = sm_grader2  + ls_grader2
+all_grader1  = sm_grader1  + ls_grader1
 
 
 def kappa(a, b):
@@ -64,13 +64,13 @@ print("=" * 70)
 print("COMBINED DATASET (n=32) vs Grader 1")
 print("=" * 70)
 for name, scores in [
-    ("Human (Grader 2)", all_sambath),
+    ("Human (Grader 2)", all_grader2),
     ("Llama 3.1 70B",    all_llama),
     ("Claude Haiku 4.5", all_claude),
     ("GPT-OSS 120B",     all_gpt),
     ("DeepSeek V3.2",    all_deepseek),
 ]:
-    print_stats(name, scores, all_shannon, 32)
+    print_stats(name, scores, all_grader1, 32)
 
 print()
 print("=" * 70)
@@ -78,17 +78,17 @@ print("STORY MODE ONLY (n=8) vs Grader 1")
 print("=" * 70)
 for name, scores in [
     ("Production AI",    sm_prod_ai),
-    ("Human (Grader 2)", sm_sambath),
+    ("Human (Grader 2)", sm_grader2),
     ("GPT-OSS 120B",     sm_gpt),
     ("DeepSeek V3.2",    sm_deepseek),
     ("Llama 3.1 70B",    sm_llama),
     ("Claude Haiku 4.5", sm_claude),
 ]:
-    print_stats(name, scores, sm_shannon, 8)
+    print_stats(name, scores, sm_grader1, 8)
 
 print()
 print("=" * 70)
 print("HUMAN INTER-RATER (Grader 2 vs Grader 1)")
 print("=" * 70)
-print_stats("Combined (n=32)",  all_sambath, all_shannon, 32)
-print_stats("Story Mode (n=8)", sm_sambath,  sm_shannon,  8)
+print_stats("Combined (n=32)",  all_grader2, all_grader1, 32)
+print_stats("Story Mode (n=8)", sm_grader2,  sm_grader1,  8)
